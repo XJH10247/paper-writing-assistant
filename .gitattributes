@@ -1,0 +1,15 @@
+# 统一换行符为 LF：脚本含 shebang，Markdown 供 Agent 逐行解析，
+# 避免 Windows 检出/提交时产生 CRLF 噪声与执行差异。
+# 二进制文件由 "* text=auto" 自动识别，无需逐扩展名声明。
+* text=auto eol=lf
+
+*.md text diff=markdown
+*.py text diff=python
+*.txt text
+*.yml text
+LICENSE text
+
+# 生成的报告与对照文件不属于源码
+doi_report.json linguist_generated=true
+expect.json linguist_generated=true
+word_count.json linguist_generated=true

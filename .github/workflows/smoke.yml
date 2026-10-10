@@ -1,0 +1,71 @@
+name: smoke
+
+# 只做离线冒烟（编译 + --help + 夹具命令 + 退出码断言）。
+# 版本矩阵用来坐实文档里的“Python ≥ 3.8”下限：3.8 本身不是用来测新特性，而是用来跑住下限。
+# 联网验证（--expect / --search）不进 CI：CrossRef/DataCite/arXiv 会限流，结果不稳定。
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    # 3.8 的预编译包在 ubuntu-24.04 上已不再提供，单独钉在 ubuntu-22.04，
+    # 否则 setup-python 会报 “Version 3.8 was not found” 造成假红。
+    runs-on: ${{ matrix.os }}
+    name: smoke (Python ${{ matrix.python-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python-version: "3.8"
+            os: ubuntu-22.04
+          - python-version: "3.11"
+            os: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 语法编译
+        run: python -m py_compile scripts/doi_check.py scripts/word_count.py
+
+      - name: --help 与 --version 可用
+        run: |
+          python scripts/word_count.py --help
+          python scripts/doi_check.py --help
+          python scripts/word_count.py --version
+          python scripts/doi_check.py --version
+
+      - name: 中文摘要字数（期望退出码 0）
+        run: python scripts/word_count.py --input examples/abstract_zh.md --lang zh
+
+      - name: 双语数值比对（期望退出码 0）
+        run: |
+          python scripts/word_count.py \
+            --zh examples/abstract_zh.md --en examples/abstract_en.md \
+            --terms "稀疏注意力=sparse attention"
+
+      - name: 缺参数应返回用法错误（期望退出码 2）
+        run: |
+          set +e
+          python scripts/doi_check.py
+          code=$?
+          set -e
+          test "$code" -eq 2
+
+      - name: 离线重复检测检出夹具中的重复项（期望退出码 1）
+        run: |
+          set +e
+          python scripts/doi_check.py --input examples/references_gbt.txt --duplicates-only
+          code=$?
+          set -e
+          test "$code" -eq 1

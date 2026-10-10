@@ -1,0 +1,7 @@
+[1] HARPER D, LOWELL P, NAKAGAWA T, et al. Adaptive sparse attention routing for long-horizon forecasting[C]//Proceedings of the Conference on Machine Intelligence for Forecasting. Seattle: Cascade Press, 2021: 2331-2340. DOI:10.5555/mif.2021.0142
+[2] VARDO A, KELMEN P, SORIN N, et al. Hierarchical compression of attention maps for streaming forecasting[C]//Proceedings of the Conference on Machine Intelligence for Forecasting. Seattle: Cascade Press, 2022: 1187-1196. DOI:10.5555/mif.2022.0311. arXiv:2599.99999
+[3] VARDO A, KELMEN P, BRANDT S. Hierarchical compression of attention maps for streaming forecasting with local enhancement[C]//Proceedings of the Conference on Machine Intelligence for Forecasting. Seattle: Cascade Press, 2022: 1197-1206. DOI:10.5555/mif.2022.0312
+[4] OKONKWO B, SORIN N. A survey of efficiency benchmarks for transformer forecasting[J]. Journal of Fictional Machine Intelligence Research, 2023, 14(2): 215-244. DOI:10.5555/jmir.2023.0087
+[5] 欧阳明, 沈立文. 面向长序列预测的分层注意力压缩方法[J]. 虚构学报(计算与信息), 2023, 12(4): 455-468.
+[6] HARPER D, BRANDT S. Adaptive sparse attention routing for long-horizon forecasting: a replication study[J]. Journal of Fictional Machine Intelligence Research, 2022, 13(5): 611-628. DOI:10.5555/mif.2021.0142
+[7] LINDQVIST E. Statistical evaluation protocols for forecasting benchmarks[M]. 3rd ed. Uppsala: Nordic University Press, 2020: 145-172. DOI:10.5555/not-a-real-doi-9999
